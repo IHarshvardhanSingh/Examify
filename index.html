@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examify - Model Papers Portal</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-4xl">📚</span>
+                    <div>
+                        <h1 class="text-3xl font-bold">Examify</h1>
+                        <p class="text-blue-100">Board of Secondary Education Rajasthan</p>
+                    </div>
+                </div>
+                <button onclick="goHome()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-all duration-300">
+                    🏠 Home
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Home Page -->
+        <div id="homePage" class="fade-in">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Examify</h2>
+                <p class="text-xl text-gray-600">Access Model Papers for all Sessions and Subjects</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Session Cards -->
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-blue-500" onclick="showEducationLevels('2023-2024')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">📅</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Session 2023-2024</h3>
+                        <p class="text-gray-600">Previous Year Model Papers</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-green-500" onclick="showEducationLevels('2024-2025')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">📊</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Session 2024-2025</h3>
+                        <p class="text-gray-600">Previous Session Papers</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-purple-500" onclick="showEducationLevels('2025-2026')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Session 2025-2026</h3>
+                        <p class="text-gray-600">New Session Papers</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-orange-500" onclick="showContactForm()">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">📧</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Contact Form</h3>
+                        <p class="text-gray-600">Get in touch with us</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Levels Page -->
+        <div id="educationLevelsPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Select Education Level</h2>
+                <p class="text-gray-600" id="sessionTitle"></p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="card-hover bg-white rounded-xl shadow-lg p-8 cursor-pointer border-l-4 border-blue-600" onclick="showSubjects('secondary')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🎓</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Secondary Education</h3>
+                        <p class="text-gray-600">Class 10th Model Papers and Study Materials</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-8 cursor-pointer border-l-4 border-green-600" onclick="showSubjects('senior-secondary')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🏆</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Senior Secondary Education</h3>
+                        <p class="text-gray-600">Class 12th Model Papers Across all Streams</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Subjects Page -->
+        <div id="secondarySubjectsPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Secondary Education Subjects</h2>
+                <p class="text-gray-600">Choose your subject to access model papers</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('english-secondary')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📖</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">English</h3>
+                        <p class="text-sm text-gray-600">Language and literature papers</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('hindi-secondary')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📝</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Hindi</h3>
+                        <p class="text-sm text-gray-600">Hindi language and grammar</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('mathematics-secondary')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🔢</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Mathematics</h3>
+                        <p class="text-sm text-gray-600">Algebra, geometry and arithmetic</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('science-secondary')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🔬</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Science</h3>
+                        <p class="text-sm text-gray-600">Physics, chemistry and biology</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('social-science-secondary')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🌍</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Social Science</h3>
+                        <p class="text-sm text-gray-600">History, geography and civics</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('sanskrit-secondary')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🕉️</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Sanskrit</h3>
+                        <p class="text-sm text-gray-600">Ancient language and literature</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Senior Secondary Streams Page -->
+        <div id="seniorSecondaryPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Senior Secondary Streams</h2>
+                <p class="text-gray-600">Select your stream to access subject-wise papers</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-blue-500" onclick="showStreamSubjects('science')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🧪</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Science Stream</h3>
+                        <p class="text-gray-600">PCM, PCB and related subjects</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-green-500" onclick="showStreamSubjects('commerce')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">💼</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Commerce Stream</h3>
+                        <p class="text-gray-600">Business, accounts and economics</p>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-purple-500" onclick="showStreamSubjects('arts')">
+                    <div class="text-center">
+                        <div class="text-5xl mb-4">🎨</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Arts Stream</h3>
+                        <p class="text-gray-600">Literature, history and humanities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stream Subjects Pages -->
+        <div id="scienceSubjectsPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Science Stream Subjects</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('physics')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">⚛️</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Physics</h3>
+                        <p class="text-sm text-gray-600">Mechanics, waves and modern physics</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('chemistry')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🧪</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Chemistry</h3>
+                        <p class="text-sm text-gray-600">Organic, inorganic and physical</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('biology')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🧬</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Biology</h3>
+                        <p class="text-sm text-gray-600">Botany, zoology and genetics</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('mathematics-senior')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📐</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Mathematics</h3>
+                        <p class="text-sm text-gray-600">Calculus, algebra and geometry</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="commerceSubjectsPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Commerce Stream Subjects</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('english-commerce')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📖</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">English</h3>
+                        <p class="text-sm text-gray-600">Business communication skills</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('hindi-commerce')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📝</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Hindi</h3>
+                        <p class="text-sm text-gray-600">Hindi language and literature</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('accountancy')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📊</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Accountancy</h3>
+                        <p class="text-sm text-gray-600">Financial accounting principles</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('business-studies')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">💼</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Business Studies</h3>
+                        <p class="text-sm text-gray-600">Management and entrepreneurship</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('computer-science')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">💻</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Computer Science</h3>
+                        <p class="text-sm text-gray-600">Programming and data structures</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('economics')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📈</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Economics</h3>
+                        <p class="text-sm text-gray-600">Micro and macro economics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="artsSubjectsPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Arts Stream Subjects</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('english-literature')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📚</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">English Literature</h3>
+                        <p class="text-sm text-gray-600">Poetry, prose and drama</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('geography')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🌍</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Geography</h3>
+                        <p class="text-sm text-gray-600">Physical and human geography</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('hindi-literature')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📖</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Hindi Literature</h3>
+                        <p class="text-sm text-gray-600">Hindi poetry and prose</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('history')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🏛️</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">History</h3>
+                        <p class="text-sm text-gray-600">Ancient, medieval and modern</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('home-science')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🏠</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Home Science</h3>
+                        <p class="text-sm text-gray-600">Nutrition and family studies</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('political-science')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🏛️</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Political Science</h3>
+                        <p class="text-sm text-gray-600">Government and politics</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="openGoogleDrive('public-administration')">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🏢</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Public Administration</h3>
+                        <p class="text-sm text-gray-600">Administrative principles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Page -->
+        <div id="contactFormPage" class="fade-in hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Contact Us</h2>
+                <p class="text-gray-600">Send us your queries and feedback</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <form id="contactForm" onsubmit="submitContactForm(event)">
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Subject</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                        <textarea required rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full gradient-bg text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg mb-2">Designed by <span class="font-bold text-blue-400"><a href="https://www.digitalguide.co.in">Digital Guide</a></span></p>
+            <p class="text-gray-400">© 2025 Examify. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentSession = '';
+        
+        function hideAllPages() {
+            const pages = ['homePage', 'educationLevelsPage', 'secondarySubjectsPage', 'seniorSecondaryPage', 'scienceSubjectsPage', 'commerceSubjectsPage', 'artsSubjectsPage', 'contactFormPage'];
+            pages.forEach(page => {
+                document.getElementById(page).classList.add('hidden');
+            });
+        }
+
+        function showPage(pageId) {
+            hideAllPages();
+            document.getElementById(pageId).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function goHome() {
+            showPage('homePage');
+        }
+
+        function showEducationLevels(session) {
+            currentSession = session;
+            document.getElementById('sessionTitle').textContent = `Session: ${session}`;
+            showPage('educationLevelsPage');
+        }
+
+        function showSubjects(level) {
+            if (level === 'secondary') {
+                showPage('secondarySubjectsPage');
+            } else {
+                showPage('seniorSecondaryPage');
+            }
+        }
+
+        function showStreamSubjects(stream) {
+            showPage(stream + 'SubjectsPage');
+        }
+
+        function showContactForm() {
+            showPage('contactFormPage');
+        }
+
+        function openGoogleDrive(subject) {
+            // Session-specific Google Drive links - replace with your actual links
+            const driveLinks = {
+                '2023-2024': {
+                    'english-secondary': 'https://drive.google.com/file/d/1FEyzoz9hU3igY2jMIhQE1Q-1MDiLBNHe/view?usp=drive_link',
+                    'hindi-secondary': 'https://drive.google.com/file/d/1HagFMT5I2zaNm82uXgyH4V_-qnb7DN4w/view?usp=sharing',
+                    'mathematics-secondary': 'https://drive.google.com/file/d/1UBdm9k3N365mEq6_bI_ymkq6v4tqWKB4/view?usp=sharing',
+                    'science-secondary': 'https://drive.google.com/file/d/1IPm8c7XOpzIaUnyIc4WRHNK6e5Fc8AB7/view?usp=sharing',
+                    'social-science-secondary': 'https://drive.google.com/file/d/1NZriW8b593brH-9S8It2xRF4L01uXeZ0/view?usp=sharing',
+                    'sanskrit-secondary': 'https://drive.google.com/file/d/1dD7jFCsZ5BjptDVspL-gyY-lgxpfnf_O/view?usp=sharing',
+                    'physics': 'https://drive.google.com/file/d/1BMA5RU3kt70gnJz1QwHqhCQ9cHBZZcZH/view?usp=sharing',
+                    'chemistry': 'https://drive.google.com/file/d/169DIYWcVqoxIUyxkE-ZBXnh2aSMsG8jq/view?usp=sharing',
+                    'biology': 'https://drive.google.com/file/d/1GKMzFmgfWeuVldZuFomld_CeF5EDd-tW/view?usp=sharing',
+                    'mathematics-senior': 'https://drive.google.com/file/d/18FTGbVk91Aop5wYy8_tDLokyJpD-8vwW/view?usp=sharing',
+                    'english-commerce': 'https://drive.google.com/file/d/127u6rQRyLlmSRdW2YksiIFLWCiDjYbY8/view?usp=sharing',
+                    'hindi-commerce': 'https://drive.google.com/file/d/1w_E15zICmgHK6jfNIPsmmhgpgxbxArT-/view?usp=sharing',
+                    'accountancy': 'https://drive.google.com/file/d/1FnsdqEzQwbNPWXk5BjBOL-6qb3ZejtmW/view?usp=sharing',
+                    'business-studies': 'https://drive.google.com/file/d/1DEW2-EknbwWGe1-t3krm7ItiSyPqBUr5/view?usp=sharing',
+                    'computer-science': 'https://drive.google.com/file/d/14j5ylU5wu7d2PKzlq4Sxd1jlfbZENC2e/view?usp=sharing',
+                    'economics': 'https://drive.google.com/file/d/1zb9RlmTWREfqYvnJ4ArycyqxRi1W0TbZ/view?usp=sharing',
+                    'english-literature': 'https://drive.google.com/file/d/1Dbm89jPZnxoTVjTF4j_z65TAb6uyI2GG/view?usp=sharing',
+                    'geography': 'https://drive.google.com/file/d/1X1xguNNXOlAzB6-PuVAvCV3ic8BhuL-X/view?usp=sharing',
+                    'hindi-literature': 'https://drive.google.com/file/d/1oU7tKixcOAVeG0hcyGLP5mJqoToXbBn1/view?usp=sharing',
+                    'history': 'https://drive.google.com/file/d/18cdRRV8B-9ABt3C359zjC5NkJjnplK05/view?usp=sharing',
+                    'home-science': 'https://drive.google.com/file/d/1i0DdNWqBCmgwsFK-cUjDLRwFVXZqBI6p/view?usp=sharing',
+                    'political-science': 'https://drive.google.com/file/d/1-Supw8FfZkK_0qe6YmtWqvZEpeX-vlmb/view?usp=sharing',
+                    'public-administration': 'https://drive.google.com/file/d/1baHVGmOKOIfV99x11S6KAgoUcQjAIvRh/view?usp=sharing'
+                },
+                '2024-2025': {
+                    'english-secondary': 'https://drive.google.com/file/d/1oYVK2XuYFmifYHGwVFy8nhYJsFyEn7so/view?usp=drive_link',
+                    'hindi-secondary': 'https://drive.google.com/file/d/1QpKtxvs5mbuS8Nf_0gxj0QBYFZcKcb8M/view?usp=sharing',
+                    'mathematics-secondary': 'https://drive.google.com/file/d/1JZ0pQKCvQRVnOGVU9qFKQVPb_FvaVPQ4/view?usp=sharing',
+                    'science-secondary': 'https://drive.google.com/file/d/1-vqDlYeFCieTfQsQuAN9LFZzNG6yd8fV/view?usp=sharing',
+                    'social-science-secondary': 'https://drive.google.com/file/d/1NiIKlgQGKOsroPvg-xung3bMXoOmZfP1/view?usp=sharing',
+                    'sanskrit-secondary': 'https://drive.google.com/file/d/1zscE11Ny067eO9bCmL1004w_Vdz2hT90/view?usp=sharing',
+                    'physics': 'https://drive.google.com/file/d/1Qtxuh_Cmpij5dD2Dcftc8EyMZlRHtkX1/view?usp=sharing',
+                    'chemistry': 'https://drive.google.com/file/d/1qZt1ckHYehxAV7-iG32u0MSlbcZjChgz/view?usp=sharing',
+                    'biology': 'https://drive.google.com/file/d/1bgSFhJlmDOerzvXJxfm2E5-eB2zlfaJp/view?usp=sharing',
+                    'mathematics-senior': 'https://drive.google.com/file/d/1Qw7s1b3_MOhl1zHRiRGWANIkFNGw2U3w/view?usp=sharing',
+                    'english-commerce': 'https://drive.google.com/file/d/1BWjBsrxRkfwLaRNYKG187Tz9jJsvf2zq/view?usp=sharing',
+                    'hindi-commerce': 'https://drive.google.com/file/d/1n-WzVQvoKVNIzjz9wCnk8k85HfZOHq20/view?usp=sharing',
+                    'accountancy': 'https://drive.google.com/file/d/1RKk7MHmG871w4WYZ5xcjo9nLj3AFDj-Z/view?usp=sharing',
+                    'business-studies': 'https://drive.google.com/file/d/1eGGAjGxynjospye1nbtW3Ffbc1ZJjPPa/view?usp=sharing',
+                    'computer-science': 'https://drive.google.com/file/d/1H3aJYAA85ypQb4nw9enedqDjhUDByQem/view?usp=sharing',
+                    'economics': 'https://drive.google.com/file/d/14NWmbbOvV91iWScJ1F3UTRRZ4SlDjp4H/view?usp=sharing',
+                    'english-literature': 'https://drive.google.com/file/d/1cljdhniVL_8t20861FJQkjumm9opfFpv/view?usp=sharing',
+                    'geography': 'https://drive.google.com/file/d/1FpKp6GHzntbFFzi_aG386tMigoaRzr-X/view?usp=sharing',
+                    'hindi-literature': 'https://drive.google.com/file/d/1JMUgact2_RVWCOazxe6B-GmB51KBRlLl/view?usp=sharing',
+                    'history': 'https://drive.google.com/file/d/13iMTKk0xQoPXz7kWEBuwcyJgceFXpLu2/view?usp=sharing',
+                    'home-science': 'https://drive.google.com/file/d/12Lp3yyVmu_XVx2Vb023eAZkTpwvL0x0J/view?usp=sharing',
+                    'political-science': 'https://drive.google.com/file/d/1_pczX_iFH-ooF3orPUk0TvoV45i9TvJj/view?usp=sharing',
+                    'public-administration': 'https://drive.google.com/file/d/1cmuVxQs3_zepuXuoLRE0GbPu5jFj1nQk/view?usp=sharing'
+                },
+                '2025-2026': {
+                    'english-secondary': 'https://drive.google.com/drive/folders/2025-english-secondary',
+                    'hindi-secondary': 'https://drive.google.com/drive/folders/2025-hindi-secondary',
+                    'mathematics-secondary': 'https://drive.google.com/drive/folders/2025-math-secondary',
+                    'science-secondary': 'https://drive.google.com/drive/folders/2025-science-secondary',
+                    'social-science-secondary': 'https://drive.google.com/drive/folders/2025-social-secondary',
+                    'sanskrit-secondary': 'https://drive.google.com/drive/folders/2025-sanskrit-secondary',
+                    'physics': 'https://drive.google.com/drive/folders/2025-physics',
+                    'chemistry': 'https://drive.google.com/drive/folders/2025-chemistry',
+                    'biology': 'https://drive.google.com/drive/folders/2025-biology',
+                    'mathematics-senior': 'https://drive.google.com/drive/folders/2025-math-senior',
+                    'english-commerce': 'https://drive.google.com/drive/folders/2025-english-commerce',
+                    'hindi-commerce': 'https://drive.google.com/drive/folders/2025-hindi-commerce',
+                    'accountancy': 'https://drive.google.com/drive/folders/2025-accountancy',
+                    'business-studies': 'https://drive.google.com/drive/folders/2025-business',
+                    'computer-science': 'https://drive.google.com/drive/folders/2025-computer',
+                    'economics': 'https://drive.google.com/drive/folders/2025-economics',
+                    'english-literature': 'https://drive.google.com/drive/folders/2025-english-lit',
+                    'geography': 'https://drive.google.com/drive/folders/2025-geography',
+                    'hindi-literature': 'https://drive.google.com/drive/folders/2025-hindi-lit',
+                    'history': 'https://drive.google.com/drive/folders/2025-history',
+                    'home-science': 'https://drive.google.com/drive/folders/2025-home-science',
+                    'political-science': 'https://drive.google.com/drive/folders/2025-political',
+                    'public-administration': 'https://drive.google.com/drive/folders/2025-public-admin'
+                }
+            };
+
+            // Get the link for the current session and subject
+            const sessionLinks = driveLinks[currentSession];
+            if (sessionLinks && sessionLinks[subject]) {
+                window.open(sessionLinks[subject], '_blank');
+            } else {
+                alert(`Model papers for ${subject} in session ${currentSession} will be available soon!`);
+            }
+        }
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const name = formData.get('name') || form.elements[0].value;
+            const email = formData.get('email') || form.elements[1].value;
+            const subject = formData.get('subject') || form.elements[2].value;
+            const message = formData.get('message') || form.elements[3].value;
+            
+            const mailtoLink = `mailto:myselfdigitalguide@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            window.location.href = mailtoLink;
+            
+            alert('Thank you for your message! Your default email client will open to send the message.');
+            form.reset();
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'987485a4c4d1a75d',t:'MTc1OTI0MzcxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
